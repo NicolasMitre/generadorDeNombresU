@@ -30,10 +30,8 @@ function cargarNombres(e) {
   //conectar con FETCH
 
   fetch(url)
-    .then(function(res) {
-      return res.json();
-    })
-    .then(function(data) {
+    .then(res => res.json())
+    .then(data => {
       let html = `<h2> Nombres Generados </h2>`;
       html += `<ul class="lista">`;
       data.forEach(function(nombre) {
@@ -42,7 +40,5 @@ function cargarNombres(e) {
       html += `</ul>`;
       document.querySelector("#resultado").innerHTML = html;
     })
-    .catch(function(err) {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 }
