@@ -27,27 +27,22 @@ function cargarNombres(e) {
     url += `amount=${cantidad}&`;
   }
 
-  //conectar con AJAX
+  //conectar con FETCH
 
-  const xhr = new XMLHttpRequest();
-
-  xhr.open("GET", url, true);
-
-  xhr.onload = function() {
-    if (this.status === 200) {
-      const nombres = JSON.parse(this.responseText);
-      let htmlNombres = `<h2> Nombres Generados </h2>`;
-      htmlNombres += `<ul class="lista">`;
-
-      nombres.forEach(function(nombre) {
-        htmlNombres += `<li> ${nombre.name} </>`;
+  fetch(url)
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(data) {
+      let html = `<h2> Nombres Generados </h2>`;
+      html += `<ul class="lista">`;
+      data.forEach(function(nombre) {
+        html += `<li> ${nombre.name} </li>`;
       });
-
-      htmlNombres += `</ul>`;
-
-      document.getElementById("resultado").innerHTML = htmlNombres;
-    }
-  };
-
-  xhr.send();
+      html += `</ul>`;
+      document.querySelector("#resultado").innerHTML = html;
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
 }
